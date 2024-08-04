@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://yoroabufkpau"]
+
+[ext_resource type="Script" path="res://character/components/movement_component/movement_component.gd" id="1_vciom"]
+
+[node name="MovementComponent" type="Node3D"]
+script = ExtResource("1_vciom")

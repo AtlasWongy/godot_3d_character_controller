@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bruloo5nh0cxa"]
+
+[ext_resource type="Script" path="res://character/components/camera_component/camera_component.gd" id="1_tay8r"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ksk8w"]
+radius = 0.07
+
+[node name="CamRoot" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("1_tay8r")
+
+[node name="CamYaw" type="Node3D" parent="."]
+
+[node name="CamPitch" type="Node3D" parent="CamYaw"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CamYaw/CamPitch"]
+transform = Transform3D(-0.999204, 0, 0.0398877, -0.00113739, 0.999593, -0.0284921, -0.0398715, -0.0285148, -0.998798, 0, 0, 0)
+shape = SubResource("SphereShape3D_ksk8w")
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="CamYaw/CamPitch/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.121735, 0.299467, 3.04951)
