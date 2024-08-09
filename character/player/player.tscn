@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://0fv4xk53pcrt"]
+[gd_scene load_steps=19 format=3 uid="uid://0fv4xk53pcrt"]
 
 [ext_resource type="PackedScene" uid="uid://wps3n8c7fqk" path="res://assets/godot_robot_3d/3DGodotRobot.glb" id="1_6kujf"]
 [ext_resource type="PackedScene" uid="uid://yoroabufkpau" path="res://character/components/movement_component/movement_component.tscn" id="1_42pqt"]
@@ -10,6 +10,9 @@
 [ext_resource type="Script" path="res://character/components/animation_component/animation_component.gd" id="6_c5xhu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fyami"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oesp8"]
+animation = &"Crouch"
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_eetys"]
 
@@ -33,14 +36,30 @@ min_space = 0.0
 max_space = 2.0
 snap = 1.0
 
+[sub_resource type="Curve" id="Curve_8qh15"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_87hj0"]
+xfade_time = 0.25
+xfade_curve = SubResource("Curve_8qh15")
+input_0/name = "movement"
+input_0/auto_advance = false
+input_0/reset = true
+input_1/name = "crouch"
+input_1/auto_advance = false
+input_1/reset = true
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ymva2"]
-graph_offset = Vector2(-54.6245, 116.945)
+graph_offset = Vector2(-186.477, 49.2141)
+nodes/crouch/node = SubResource("AnimationNodeAnimation_oesp8")
+nodes/crouch/position = Vector2(280, 360)
 nodes/movement_anim_speed/node = SubResource("AnimationNodeTimeScale_eetys")
-nodes/movement_anim_speed/position = Vector2(620, 120)
+nodes/movement_anim_speed/position = Vector2(720, 200)
 nodes/movement_blend/node = SubResource("AnimationNodeBlendSpace1D_lnw5u")
 nodes/movement_blend/position = Vector2(241.633, 214.004)
-nodes/output/position = Vector2(920, 160)
-node_connections = [&"movement_anim_speed", 0, &"movement_blend", &"output", 0, &"movement_anim_speed"]
+nodes/output/position = Vector2(1020, 180)
+nodes/transition/node = SubResource("AnimationNodeTransition_87hj0")
+nodes/transition/position = Vector2(520, 240)
+node_connections = [&"movement_anim_speed", 0, &"transition", &"output", 0, &"movement_anim_speed", &"transition", 0, &"movement_blend", &"transition", 1, &"crouch"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_81seq")
@@ -69,27 +88,25 @@ player = NodePath("..")
 [node name="3DGodotRobot" parent="MeshRoot" instance=ExtResource("1_6kujf")]
 
 [node name="Skeleton3D" parent="MeshRoot/3DGodotRobot/RobotArmature" index="0"]
-bones/0/position = Vector3(-1.19651e-18, 0.877887, 0.0298551)
+bones/0/position = Vector3(3.60182e-17, 0.88752, 0.0298551)
 bones/0/rotation = Quaternion(0.0149092, 1.19196e-07, 1.77731e-09, 0.999889)
 bones/1/rotation = Quaternion(0.0294489, -1.52236e-14, 7.02117e-09, 0.999566)
-bones/4/position = Vector3(-3.22725e-16, 0.164598, -0.0112811)
+bones/4/position = Vector3(-1.27814e-16, 0.172324, -0.0110097)
 bones/4/rotation = Quaternion(0.00540027, -1.19208e-07, -6.43763e-10, 0.999985)
 bones/5/rotation = Quaternion(0.00821238, -4.94291e-14, -1.95798e-09, 0.999966)
-bones/8/position = Vector3(9.98437e-08, 0.0893909, 0.418775)
-bones/9/position = Vector3(0.267321, 0.100249, -0.0273899)
-bones/9/rotation = Quaternion(-0.513698, -0.468235, -0.512549, 0.504146)
-bones/10/rotation = Quaternion(-0.377043, 0.602236, -0.455008, 0.536767)
+bones/8/position = Vector3(9.98745e-08, 0.105775, 0.418904)
+bones/9/position = Vector3(0.267321, 0.114031, -0.0269058)
+bones/9/rotation = Quaternion(-0.508074, -0.474314, -0.506932, 0.509811)
+bones/10/rotation = Quaternion(-0.388766, 0.592802, -0.467437, 0.528157)
 bones/12/rotation = Quaternion(0.0209349, 0.0170217, -0.0176714, 0.99948)
-bones/13/position = Vector3(-0.267321, 0.100249, -0.0273899)
-bones/13/rotation = Quaternion(-0.513698, 0.468235, 0.512549, 0.504146)
-bones/14/rotation = Quaternion(-0.377043, -0.602236, 0.455008, 0.536767)
+bones/13/position = Vector3(-0.267321, 0.114031, -0.0269058)
+bones/13/rotation = Quaternion(-0.508074, 0.474314, 0.506932, 0.509811)
+bones/14/rotation = Quaternion(-0.388766, -0.592802, 0.467437, 0.528157)
 bones/16/rotation = Quaternion(0.0209349, -0.0170217, 0.0176714, 0.99948)
-bones/17/rotation = Quaternion(0.99813, 0.0208291, -0.00600045, 0.0571503)
-bones/18/rotation = Quaternion(0.0884281, 0.00638503, 0.0264544, 0.995711)
-bones/19/rotation = Quaternion(-0.536595, 0.00288316, -0.00506941, 0.84382)
-bones/21/rotation = Quaternion(0.99813, -0.0208291, 0.00600046, 0.0571503)
-bones/22/rotation = Quaternion(0.0884281, -0.00638501, -0.0264544, 0.995711)
-bones/23/rotation = Quaternion(-0.536595, -0.00288317, 0.00506943, 0.84382)
+bones/17/rotation = Quaternion(0.999647, 0.0210636, -0.00512356, 0.0153314)
+bones/18/rotation = Quaternion(-0.00618425, 0.00495339, 0.0269892, 0.999604)
+bones/21/rotation = Quaternion(0.999647, -0.0210636, 0.00512357, 0.0153314)
+bones/22/rotation = Quaternion(-0.00618428, -0.00495338, -0.0269892, 0.999604)
 
 [node name="AnimationTree" type="AnimationTree" parent="MeshRoot"]
 root_node = NodePath("../3DGodotRobot")
@@ -97,6 +114,9 @@ tree_root = SubResource("AnimationNodeBlendTree_ymva2")
 anim_player = NodePath("../3DGodotRobot/AnimationPlayer")
 parameters/movement_anim_speed/scale = 1.0
 parameters/movement_blend/blend_position = 0.0
+parameters/transition/current_state = "movement"
+parameters/transition/transition_request = ""
+parameters/transition/current_index = 0
 
 [node name="CamRoot" parent="." instance=ExtResource("3_tso5s")]
 

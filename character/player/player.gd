@@ -20,7 +20,10 @@ func _input(event):
 				set_movement_state.emit(movement_states["run"])
 		else:
 			set_movement_state.emit(movement_states["idle"])
-
+	
+	if event.is_action_pressed("crouch"):
+		print("I am gonna crouch")
+	
 func _ready() -> void:
 	set_movement_state.emit(movement_states["idle"])
 	
